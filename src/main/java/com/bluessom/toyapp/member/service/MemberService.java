@@ -33,4 +33,29 @@ public class MemberService implements IMemberService {
 		return selectedMem;
 	}
 
+	@Override
+	public Member memberModify(Member member) {
+		
+		//Member modifiedMem = dao.memberUpdate(member);
+		int result = dao.memberUpdate(member);
+		
+		if(result == 0) {
+			System.out.println("Modify fail");
+			return null;
+		} else System.out.println("Modify success");
+		
+		return member; 
+	}
+	
+	@Override
+	public int memberRemove(Member member) {
+		
+		int result = dao.memberDelete(member);
+		
+		if(result == 0) {
+			System.out.println("Remove fail");
+		} else System.out.println("Remove success");
+		
+		return result;
+	}
 }

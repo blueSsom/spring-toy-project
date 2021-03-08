@@ -1,6 +1,6 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,31 +8,31 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Join page</h1>
+	<h1>Modify page</h1>
 	
-	<form:form action="${cp}/member/join" method="post" commandName="member">
+	<form:form method="post" commandName="member">
 		<table>
 			<tr>
 				<td>ID</td>
-				<td><form:input path="memId" /></td>
+				<td>${member.memId}</td>
 			</tr>
 			<tr>
 				<td>PW</td>
 				<td><form:password path="memPw" /></td>
 			</tr>
 			<tr>
-				<td>PW check</td>
-				<td><input type="password" name="checkPw" /></td>
+				<td>New PW</td>
+				<td><input type="text" name="newPw"></td>
 			</tr>
 			<tr>
-				<td colspan="2">
-					<input type="submit" value="Join" >
-					<input type="reset" value="Cancel" >
-				</td>
+				<td><input type="submit" value="Modify" formaction="${cp}/member/modify"></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="Remove" formaction="${cp}/member/remove"></td>
 			</tr>
 		</table>
 	</form:form>
 	
-	<a href="${cp}/">Main</a>
+	<a href="${cp}/">MAIN</a>
 </body>
 </html>

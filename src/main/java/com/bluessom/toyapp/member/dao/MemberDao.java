@@ -1,11 +1,13 @@
 package com.bluessom.toyapp.member.dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
@@ -68,11 +70,45 @@ public class MemberDao implements IMemberDao {
 			// TODO: handle exception
 			return null;
 		}
-		
-		
-		
-			
+					
 		return selectedMem;
 	}
 
+	@Override
+	public int memberUpdate(final Member member) {
+		
+		int result = 0;
+		
+		final String sql = "UPDATE MEMBER SET memPw = ? WHERE memId =?";
+		
+		result = template.update(sql, new PreparedStatementSetter() {
+
+			@Override
+			public void setValues(PreparedStatement pstmt) throws SQLException {
+				pstmt.setString(1, member.getMemPw());
+				pstmt.setString(2,  member.getMemId());
+			}
+		});
+		
+		return result;
+	}
+	
+	@Override
+	public int memberDelete(final Member member) {
+		int result = 0;
+		
+		final String sql = "DELETE MEMBER WHERE memId = ? AND memPw = ?";
+		
+		result = template.update(sql, new PreparedStatementSetter() {
+
+			@Override
+			public void setValues(PreparedStatement pstmt) throws SQLException {
+				// TODO Auto-generated method stub
+				pstmt.setString(1, member.getMemId());
+				pstmt.setString(2, member.getMemPw());
+			}
+		});
+		
+		return result;
+	}
 }
